@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getPosts, getAllTags } from '../../utils/posts';
+
+const posts = await getPosts();
+const tags = getAllTags(posts);
+---
+
+<BaseLayout title="标签 · 闲敲棋子">
+  <Header />
+  <main class="max-w-3xl mx-auto px-6 py-12 flex-1 w-full">
+    <h1 class="text-3xl mb-8">标签</h1>
+    {tags.length === 0 ? (
+      <p class="text-warm-gray text-center py-12 font-sans">暂无标签</p>
+    ) : (
+      <div class="flex flex-wrap gap-3">
+        {tags.map(([tag, count]) => (
+          <a
+            href={`/tags/${tag}`}
+            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full
+                   bg-light-tan/40 text-warm-gray hover:bg-warm-gold/20
+                   hover:text-dark-brown transition-colors no-underline font-sans text-sm"
+          >
+            #{tag}
+            <span class="text-xs text-warm-gray/50">({count})</span>
+          </a>
+        ))}
+      </div>
+    )}
+  </main>
+  <Footer />
+</BaseLayout>
