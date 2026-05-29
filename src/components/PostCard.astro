@@ -1,0 +1,31 @@
+---
+import TagBadge from './TagBadge.astro';
+import { formatDate, getReadingTime } from '../utils/posts';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, date, tags, excerpt } = post.data;
+const readingTime = getReadingTime(post.body || '');
+---
+
+<article class="pb-6 mb-6 border-b border-light-tan last:border-b-0">
+  <time class="text-sm text-warm-gray font-sans">{formatDate(date)}</time>
+  <h2 class="text-xl mt-1 mb-2">
+    <a href={`/posts/${post.id}/`} class="no-underline hover:text-warm-gold transition-colors text-dark-brown">
+      {title}
+    </a>
+  </h2>
+  <p class="text-warm-gray text-sm leading-relaxed mb-3 font-sans">
+    {excerpt || post.body?.slice(0, 120) + '...'}
+  </p>
+  <div class="flex items-center gap-3 flex-wrap">
+    <span class="text-xs text-warm-gray/70 font-sans">{readingTime} min read</span>
+    <div class="flex gap-1.5 flex-wrap">
+      {tags.map((tag) => <TagBadge tag={tag} href={`/tags/${tag}`} />)}
+    </div>
+  </div>
+</article>

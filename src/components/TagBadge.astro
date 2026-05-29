@@ -1,0 +1,18 @@
+---
+interface Props {
+  tag: string;
+  href?: string;
+}
+
+const { tag, href } = Astro.props;
+const Component = href ? 'a' : 'span';
+---
+
+<Component
+  href={href}
+  class="inline-block px-2.5 py-0.5 text-xs font-sans rounded-full
+         bg-light-tan/50 text-warm-gray hover:bg-warm-gold/20
+         hover:text-dark-brown transition-colors no-underline"
+>
+  #{tag}
+</Component>
