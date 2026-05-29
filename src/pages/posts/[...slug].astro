@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import TagBadge from '../../components/TagBadge.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { formatDate, getReadingTime } from '../../utils/posts';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { title, date, tags } = post.data;
+const readingTime = getReadingTime(post.body || '');
+---
+
+<BaseLayout title={`${title} · 闲敲棋子`} description={post.data.excerpt}>
+  <Header />
+  <main class="max-w-3xl mx-auto px-6 py-12 flex-1 w-full">
+    <a href="/" class="text-sm font-sans text-warm-gray hover:text-dark-brown transition-colors no-underline mb-6 inline-block">
+      ← 返回首页
+    </a>
+    <article>
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl mb-3">{title}</h1>
+        <div class="flex items-center gap-3 text-sm text-warm-gray font-sans">
+          <time>{formatDate(date)}</time>
+          <span>·</span>
+          <span>{readingTime} min read</span>
+        </div>
+        <div class="flex gap-1.5 mt-3">
+          {tags.map((tag) => <TagBadge tag={tag} href={`/tags/${tag}`} />)}
+        </div>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+    <div class="mt-12 pt-6 border-t border-light-tan">
+      <a href="/" class="text-sm font-sans text-warm-gray hover:text-dark-brown transition-colors no-underline">
+        ← 返回首页
+      </a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
