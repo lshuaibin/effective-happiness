@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://yourusername.github.io',
-  base: '/',
+  site: 'https://lshuaibin.github.io',
+  base: '/effective-happiness/',
   integrations: [tailwind()],
   markdown: {
     shikiConfig: {
