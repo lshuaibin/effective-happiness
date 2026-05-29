@@ -7,15 +7,17 @@ interface Props {
   post: CollectionEntry<'posts'>;
 }
 
+const base = import.meta.env.BASE_URL;
 const { post } = Astro.props;
 const { title, date, tags, excerpt } = post.data;
 const readingTime = getReadingTime(post.body || '');
+const slug = post.id.replace(/\.md$/, '');
 ---
 
 <article class="pb-6 mb-6 border-b border-light-tan last:border-b-0">
   <time class="text-sm text-warm-gray font-sans">{formatDate(date)}</time>
   <h2 class="text-xl mt-1 mb-2">
-    <a href={`/posts/${post.id}/`} class="no-underline hover:text-warm-gold transition-colors text-dark-brown">
+    <a href={`${base}posts/${slug}/`} class="no-underline hover:text-warm-gold transition-colors text-dark-brown">
       {title}
     </a>
   </h2>
@@ -25,7 +27,7 @@ const readingTime = getReadingTime(post.body || '');
   <div class="flex items-center gap-3 flex-wrap">
     <span class="text-xs text-warm-gray/70 font-sans">{readingTime} min read</span>
     <div class="flex gap-1.5 flex-wrap">
-      {tags.map((tag) => <TagBadge tag={tag} href={`/tags/${tag}`} />)}
+      {tags.map((tag) => <TagBadge tag={tag} href={`${base}tags/${tag}`} />)}
     </div>
   </div>
 </article>

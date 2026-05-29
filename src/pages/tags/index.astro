@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getPosts, getAllTags } from '../../utils/posts';
 
+const base = import.meta.env.BASE_URL;
 const posts = await getPosts();
 const tags = getAllTags(posts);
 ---
@@ -18,7 +19,7 @@ const tags = getAllTags(posts);
       <div class="flex flex-wrap gap-3">
         {tags.map(([tag, count]) => (
           <a
-            href={`/tags/${tag}`}
+            href={`${base}tags/${tag}`}
             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full
                    bg-light-tan/40 text-warm-gray hover:bg-warm-gold/20
                    hover:text-dark-brown transition-colors no-underline font-sans text-sm"

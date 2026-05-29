@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { tag, href } = Astro.props;
+/* href is passed from parent with base already included */
 const Component = href ? 'a' : 'span';
 ---
 
