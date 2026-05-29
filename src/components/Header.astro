@@ -1,0 +1,28 @@
+---
+const navItems = [
+  { label: '首页', href: '/' },
+  { label: '归档', href: '/archive' },
+  { label: '标签', href: '/tags' },
+  { label: '关于', href: '/about' },
+];
+---
+
+<header class="border-b border-light-tan">
+  <nav class="max-w-4xl mx-auto px-6 py-6 flex items-center justify-between">
+    <a href="/" class="text-2xl font-bold text-dark-brown no-underline hover:no-underline">
+      闲敲棋子
+    </a>
+    <ul class="flex gap-6 text-sm font-sans text-warm-gray">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="hover:text-dark-brown transition-colors no-underline"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
