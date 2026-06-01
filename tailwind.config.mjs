@@ -11,7 +11,7 @@ export default {
         'light-tan': '#e8e0d0',
       },
       fontFamily: {
-        serif: ['Georgia', 'Noto Serif SC', 'Source Serif 4', 'serif'],
+        serif: ['Georgia', 'LXGW WenKai', 'Noto Serif SC', 'serif'],
         sans: ['system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         mono: ['Fira Code', 'Cascadia Code', 'Consolas', 'monospace'],
       },
